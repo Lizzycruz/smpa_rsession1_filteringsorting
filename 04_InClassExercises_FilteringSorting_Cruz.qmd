@@ -51,7 +51,7 @@ impeach
 impeach %>% 
   filter(for_impeachment == "NO")
 
-
+# For this question, I used the %>% command to make the commands more simple in order to build off of this command and set it up well for other questions. 
 
 
 ```
@@ -62,16 +62,16 @@ impeach %>%
 
 
 
-
-
+impeach %>% 
+filter(for_impeachment == "NO", p16winningparty == "R")
+#  I saw notes on how to add multiple filters for one table, I put in a comma to separate the different filters and used the '==' to pick just the Republicans from 2016. 
 ```
 
 3) Filter for only results where a member is against impeachment, comes from a district that President Trump won in 2016 (which is noted in the "p16winningparty" column), and also comes from a district that Mitt Romney won in 2012 ("p12winningparty").
 
 ```{r}
-
-
-
+impeach %>% 
+  filter(for_impeachment == "NO", p16winningparty == "R", p12winningparty == "R")
 
 
 ```
@@ -79,8 +79,9 @@ impeach %>%
 4) Filter for only results from September 2019 where a member is a YES for impeachment.
 
 ```{r}
-
-
+impeach %>% 
+  filter(for_impeachment == "YES", date_month == 9, date_year == 2019)
+# Similar to the question before, I used the %>% (pipe) command to select the data set and the filter I wanted to use, this time selecting those who agree with the impeachment. After, I used the date_month and date_year columns to only select those from September 2019. 
 
 
 
@@ -90,8 +91,10 @@ impeach %>%
 
 ```{r}
 
+impeach %>% 
+  filter(for_impeachment == "YES", clinton_percent > 70)
 
-
+# For this question, I used a comma to build off of the initial filter command. This was similar to what I did for the second question. 
 
 
 ```
@@ -100,21 +103,21 @@ impeach %>%
 bachelor's degree or higher ("pct_bachelors"), from lowest to highest.
 
 ```{r}
+impeach %>%
+  arrange(pct_bachelors)
 
-
-
-
-
+# For this question I saw that the arrange was used for sorting and I was able to complete it  successfully from lowest to highest for the entire dataframe. 
 
 ```
 
 7) Sort the just those who are NO on impeachment based on the percentage of a district that has a bachelor's degree or higher ("pct_bachelors"), from lowest to highest.
 
 ```{r}
+impeach %>% 
+  filter(for_impeachment == "NO") %>%
+  arrange(pct_bachelors)
 
-
-
-
+# For this question I looked back at the previous code and added the sorting for the bachelor's degrees onto it by using the pipe command to create a larger line of code. 
 
 ```
 
@@ -123,20 +126,21 @@ bachelor's degree or higher ("pct_bachelors"), from lowest to highest.
 Then filter those records by only those whose bachelor's percentage is below the national average (found in the "pct_bachelors_compared_to_national" column).
 
 ```{r}
-
-
-
-
-
+impeach %>% 
+  filter(for_impeachment == "NO") %>%
+  arrange(pct_bachelors) %>%
+  filter(pct_bachelors_compared_to_national == "BELOW")
 
 ```
 
 9) Filter for only members from New Jersey who are NO on impeachment.
 
 ```{r}
+impeach %>% 
+  filter(state == "NJ") %>% 
+  filter(for_impeachment == "NO")
 
-
-
+# During this question, I looked at what column for the state that a House member was from and how NJ was represented (that being NJ) and then out of those filtering out only the ones that are against impeachment. The order here was  important to take account of before completing the line of code.
 
 
 ```
@@ -144,7 +148,11 @@ Then filter those records by only those whose bachelor's percentage is below the
 10) Filter for those who were YES on impeachment, with a declared date prior to 2019. So only those with dates before 2019. Then sort those so that the highest Clinton vote percentages are at the top.
 
 ```{r}
+impeach %>%
+  filter(for_impeachment == "YES", date_year < 2019) %>% 
+  arrange(desc(clinton_percent))
 
+# For this question, first I filtered the dataset for the impeachment, after I only selected those with a declared date prior to 2019 by using the date_year category. Then, I made sure  to do the descending command along with the arrange command in order to sort it by the highest Clinton cote percentages on top
 
 
 
